@@ -1,7 +1,5 @@
 package com.whizsid.sandpaper.api
 
-import com.whizsid.sandpaper.api.enums.Direction
-
 class Workspace {
     private var columns:MutableList<Column> = mutableListOf()
 
@@ -36,6 +34,8 @@ class Workspace {
      */
     fun addColumn(column:Column,index:Int = 0):void{
         this.columns.add(index,column)
+
+        column.setWorkspace(this)
 
         // Indexing again
         this.index()
@@ -156,6 +156,23 @@ class Workspace {
         }
 
         return 0
+    }
+
+    /**
+     * Returning a column by its index
+     *
+     * @param index What column to return
+     *
+     * @return Returning column if found a column for the given index. Otherwise null
+     */
+    fun getColumn(index:Int):Column?{
+        if(index<0)
+            return null
+
+        if(index>this.columns.size-1)
+            return null
+
+        return this.columns[index]
     }
 
 }
